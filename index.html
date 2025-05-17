@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TireMarket - Магазин шин</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Ваши стили остаются без изменений */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #f5f5f5; color: #333; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        /* ... остальные стили ... */
+    </style>
+</head>
+<body>
+    <!-- Ваша HTML-разметка -->
+    <header>...</header>
+    <div class="container">...</div>
+
+    <script>
+        // Локальные данные вместо API (для GitHub Pages)
+        const productsData = {
+            "Легковые": [
+                {
+                    id: 1,
+                    name: "Michelin Pilot Sport 4",
+                    price: 8490,
+                    image: "https://via.placeholder.com/300x200?text=Michelin",
+                    size: "225/45 R17",
+                    season: "Летние"
+                }
+                // ... другие товары
+            ]
+        };
+
+        // Имитация работы с корзиной
+        class Cart {
+            constructor() {
+                this.items = JSON.parse(localStorage.getItem('cart')) || [];
+            }
+            addProduct(product) {
+                this.items.push(product);
+                localStorage.setItem('cart', JSON.stringify(this.items));
+            }
+        }
+
+        const cart = new Cart();
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            // Показ товаров
+            const productGrid = document.getElementById('productGrid');
+            productsData["Легковые"].forEach(product => {
+                productGrid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>${product.price} ₽</p>
+                        <button onclick="cart.addProduct(${JSON.stringify(product)})">В корзину</button>
+                    </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
